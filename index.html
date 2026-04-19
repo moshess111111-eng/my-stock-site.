@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת מסחר מקצועית - Project 2M</title>
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <style>
+        :root {
+            --bg-color: #0a0e17;
+            --panel-bg: #131722;
+            --text-color: #d1d4dc;
+            --accent-color: #2962ff;
+            --border-color: #2a2e39;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .header {
+            height: 50px;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100% - 50px);
+        }
+
+        #chart-container {
+            flex: 3;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar {
+            flex: 1;
+            background: var(--panel-bg);
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+        }
+
+        .widget-box {
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .btn-lang {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; overflow-y: auto; }
+            #chart-container { height: 400px; width: 100%; }
+            .sidebar { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">PROJECT 2M | TRADING TERMINAL</div>
+    <div>
+        <button class="btn-lang" onclick="toggleLang()">עברית / EN</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div id="chart-container"></div>
+
+    <div class="sidebar">
+        <div class="widget-box">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                {
+                "colorTheme": "dark",
+                "dateRange": "12M",
+                "showChart": true,
+                "locale": "he_IL",
+                "width": "100%",
+                "height": "100%",
+                "largeChartUrl": "",
+                "isTransparent": true,
+                "showSymbolLogo": true,
+                "showFloatingTooltip": false,
+                "tabs": [
+                    {
+                    "title": "מניות מובילות",
+                    "symbols": [
+                        {"s": "NASDAQ:NVDA", "d": "NVIDIA"},
+                        {"s": "NASDAQ:MSFT", "d": "Microsoft"},
+                        {"s": "NASDAQ:AMD", "d": "AMD"},
+                        {"s": "NASDAQ:AAPL", "d": "Apple"},
+                        {"s": "CBOE:VIX", "d": "VIX Index"}
+                    ]
+                    }
+                ]
+                }
+                </script>
+            </div>
+        </div>
+
+        <div class="widget-box">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                {
+                "interval": "1D",
+                "width": "100%",
+                "isTransparent": true,
+                "height": "100%",
+                "symbol": "NASDAQ:NVDA",
+                "showIntervalTabs": true,
+                "locale": "he_IL",
+                "colorTheme": "dark"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize Chart
+    new TradingView.widget({
+        "width": "100%",
+        "height": "100%",
+        "symbol": "NASDAQ:NVDA",
+        "interval": "D",
+        "timezone": "Et
